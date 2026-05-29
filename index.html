@@ -1823,43 +1823,40 @@
     /* ══════════════════════════════════════════════
          THEME TOGGLE BUTTON & PANEL
       ══════════════════════════════════════════════ */
+    /* ── THEME TOGGLE — lives inside nav, top-right ── */
     #theme-toggle-btn {
-      position: fixed;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 9999;
       background: var(--red);
-      border: 3px solid var(--red-dark);
-      width: 50px;
-      height: 50px;
+      border: 2px solid var(--red-dark);
+      height: 36px;
+      width: 42px;
       cursor: none;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 5px;
-      box-shadow: 3px 3px 0 var(--red-dark);
+      box-shadow: 2px 2px 0 var(--red-dark);
       transition: all 0.2s;
+      flex-shrink: 0;
       image-rendering: pixelated;
     }
 
     #theme-toggle-btn:hover {
-      transform: translateY(-50%) translate(-2px, -2px);
-      box-shadow: 5px 5px 0 var(--red-dark);
+      transform: translate(-1px, -1px);
+      box-shadow: 3px 3px 0 var(--red-dark);
     }
 
     #theme-toggle-btn span {
-      width: 20px;
-      height: 3px;
+      width: 18px;
+      height: 2px;
       background: white;
       display: block;
-      transition: all 0.35s;
+      transition: all 0.3s;
       transform-origin: center;
     }
 
     #theme-toggle-btn.panel-open span:nth-child(1) {
-      transform: translateY(8px) rotate(45deg);
+      transform: translateY(7px) rotate(45deg);
     }
 
     #theme-toggle-btn.panel-open span:nth-child(2) {
@@ -1868,29 +1865,36 @@
     }
 
     #theme-toggle-btn.panel-open span:nth-child(3) {
-      transform: translateY(-8px) rotate(-45deg);
+      transform: translateY(-7px) rotate(-45deg);
     }
 
+    /* ── THEME PANEL — dropdown from top-right ── */
     #theme-panel {
       position: fixed;
-      right: -300px;
-      top: 0;
-      width: 280px;
-      height: 100vh;
+      right: 20px;
+      top: 68px;
+      width: 240px;
       background: rgba(255, 255, 255, 0.97);
-      border-left: 3px solid var(--red);
-      box-shadow: -8px 0 32px rgba(0, 0, 0, 0.15);
+      border: 3px solid var(--red);
+      box-shadow: 6px 6px 0 var(--red-dark), 0 8px 32px rgba(0,0,0,0.12);
       z-index: 9998;
       display: flex;
       flex-direction: column;
-      padding: 80px 22px 24px;
-      gap: 14px;
-      transition: right 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-      backdrop-filter: blur(16px);
+      padding: 18px 18px 16px;
+      gap: 10px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-8px);
+      transition: opacity 0.3s cubic-bezier(0.23,1,0.32,1),
+                  visibility 0.3s,
+                  transform 0.3s cubic-bezier(0.23,1,0.32,1);
+      backdrop-filter: blur(14px);
     }
 
     #theme-panel.open {
-      right: 0;
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
     }
 
     .theme-panel-title {
@@ -2010,6 +2014,41 @@
       --off-white: #0a0a1f;
       background: #050510 !important;
       color: #e0e0ff !important;
+      font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif !important;
+    }
+
+    /* Galaxy: all text uses Arial (standard fonts, no pixel) */
+    body.theme-galaxy *,
+    body.theme-galaxy p,
+    body.theme-galaxy span,
+    body.theme-galaxy li,
+    body.theme-galaxy a,
+    body.theme-galaxy button,
+    body.theme-galaxy div,
+    body.theme-galaxy label {
+      font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif !important;
+      letter-spacing: normal !important;
+      image-rendering: auto !important;
+    }
+
+    /* Galaxy: headings use Times New Roman for classic elegance */
+    body.theme-galaxy h1,
+    body.theme-galaxy h2,
+    body.theme-galaxy h3,
+    body.theme-galaxy .hero-name,
+    body.theme-galaxy .section-title,
+    body.theme-galaxy .project-name,
+    body.theme-galaxy .intern-company,
+    body.theme-galaxy .about-name-card,
+    body.theme-galaxy .timeline-degree,
+    body.theme-galaxy .timeline-badge,
+    body.theme-galaxy .popup-title,
+    body.theme-galaxy .loader-title,
+    body.theme-galaxy .nav-logo,
+    body.theme-galaxy .landing-greeting,
+    body.theme-galaxy .theme-panel-title {
+      font-family: 'Times New Roman', Times, Georgia, serif !important;
+      letter-spacing: normal !important;
     }
 
     body.theme-galaxy nav {
@@ -3189,10 +3228,46 @@
       color: #1e1e1e !important;
     }
 
+
     body.theme-dark-coder #theme-toggle-btn {
       background: #569cd6 !important;
       border-color: #264f78 !important;
       box-shadow: 3px 3px 0 #264f78 !important;
+    }
+
+    /* ── Galaxy: theme panel & toggle styles ── */
+    body.theme-galaxy #theme-panel {
+      background: rgba(5, 5, 20, 0.97) !important;
+      border-color: #a855f7 !important;
+      box-shadow: 6px 6px 0 #7c3aed, 0 8px 32px rgba(168,85,247,0.25) !important;
+    }
+
+    body.theme-galaxy .theme-panel-title {
+      color: #c084fc !important;
+      font-family: 'Times New Roman', serif !important;
+    }
+
+    body.theme-galaxy .theme-btn {
+      background: rgba(14, 14, 44, 0.9) !important;
+      color: #c084fc !important;
+      border-color: #a855f7 !important;
+      box-shadow: 3px 3px 0 #7c3aed !important;
+    }
+
+    body.theme-galaxy .theme-btn:hover,
+    body.theme-galaxy .theme-btn.active {
+      background: #a855f7 !important;
+      color: #fff !important;
+    }
+
+    body.theme-galaxy .theme-btn-desc {
+      color: rgba(192, 132, 252, 0.7) !important;
+    }
+
+    body.theme-galaxy #theme-toggle-btn {
+      background: #7c3aed !important;
+      border-color: #a855f7 !important;
+      box-shadow: 2px 2px 0 #a855f7 !important;
     }
   </style>
 </head>
@@ -3313,6 +3388,12 @@
       <li><a href="#skills">Skills</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <!-- THEME TOGGLE — top right of nav -->
+    <button id="theme-toggle-btn" onclick="toggleThemePanel()" aria-label="Change Theme" title="Switch Theme">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
     <div class="mobile-menu" id="mobile-menu">
       <a href="#hero" onclick="closeMobileMenu()">Home</a>
       <a href="#about" onclick="closeMobileMenu()">About</a>
@@ -3324,33 +3405,16 @@
     </div>
   </nav>
 
-  <!-- THEME TOGGLE BUTTON -->
-  <button id="theme-toggle-btn" onclick="toggleThemePanel()" aria-label="Change Theme">
-    <span></span>
-    <span></span>
-    <span></span>
-  </button>
-
-  <!-- THEME PANEL SIDEBAR -->
+  <!-- THEME PANEL — 2-theme dropdown -->
   <div id="theme-panel">
-    <button class="theme-panel-close" onclick="toggleThemePanel()">✕ CLOSE</button>
-    <div class="theme-panel-title">— THEMES —</div>
-    <div class="theme-panel-sub">Pick your vibe</div>
+    <div class="theme-panel-title">✦ SELECT THEME</div>
     <button class="theme-btn" id="btn-galaxy" onclick="setTheme('galaxy')">
       <span class="theme-btn-icon">🌌</span>
-      <span>GALAXY VIBE<span class="theme-btn-desc">Cosmic purple space</span></span>
-    </button>
-    <button class="theme-btn" id="btn-light-coder" onclick="setTheme('light-coder')">
-      <span class="theme-btn-icon">💡</span>
-      <span>LIGHT CODER<span class="theme-btn-desc">Clean green terminal</span></span>
-    </button>
-    <button class="theme-btn" id="btn-dark-coder" onclick="setTheme('dark-coder')">
-      <span class="theme-btn-icon">🌑</span>
-      <span>DARK CODER<span class="theme-btn-desc">VS Code dark vibes</span></span>
+      <span>Galaxy Vibe<span class="theme-btn-desc">Cosmic space · Arial font</span></span>
     </button>
     <button class="theme-btn" id="btn-default" onclick="setTheme('default')">
       <span class="theme-btn-icon">🎮</span>
-      <span>DEFAULT<span class="theme-btn-desc">Original pixel red</span></span>
+      <span>Default<span class="theme-btn-desc">Original pixel style</span></span>
     </button>
   </div>
 
@@ -4275,41 +4339,66 @@
     // ── THEME SWITCHER ──
     let themePanelOpen = false;
 
+    // Text map: [galaxyText, defaultText]
+    const GALAXY_TEXT_MAP = [
+      { sel: '#about .section-label',     galaxy: 'About Me',             def: '// Coder Profile' },
+      { sel: '.ach-label',                galaxy: 'Milestone',            def: 'ACHIEVEMENT UNLOCKED' },
+      { sel: '.loader-dots',              galaxy: 'Loading portfolio...', def: 'Booting system...' },
+    ];
+
+    function swapText(toGalaxy) {
+      GALAXY_TEXT_MAP.forEach(({ sel, galaxy, def }) => {
+        document.querySelectorAll(sel).forEach(el => {
+          el.textContent = toGalaxy ? galaxy : def;
+        });
+      });
+    }
+
     function toggleThemePanel() {
       themePanelOpen = !themePanelOpen;
       const panel = document.getElementById('theme-panel');
-      const btn = document.getElementById('theme-toggle-btn');
+      const btn   = document.getElementById('theme-toggle-btn');
       panel.classList.toggle('open', themePanelOpen);
       btn.classList.toggle('panel-open', themePanelOpen);
     }
 
+    // Close panel when clicking outside
+    document.addEventListener('click', (e) => {
+      const panel = document.getElementById('theme-panel');
+      const btn   = document.getElementById('theme-toggle-btn');
+      if (themePanelOpen && !panel.contains(e.target) && !btn.contains(e.target)) {
+        themePanelOpen = false;
+        panel.classList.remove('open');
+        btn.classList.remove('panel-open');
+      }
+    });
+
     function setTheme(theme) {
       const body = document.body;
-      body.classList.remove('theme-galaxy', 'theme-light-coder', 'theme-dark-coder');
+      body.classList.remove('theme-galaxy');
       document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+
       if (theme === 'galaxy') {
         body.classList.add('theme-galaxy');
         document.getElementById('btn-galaxy').classList.add('active');
         addGalaxyStars();
-      } else if (theme === 'light-coder') {
-        body.classList.add('theme-light-coder');
-        document.getElementById('btn-light-coder').classList.add('active');
-        removeGalaxyStars();
-      } else if (theme === 'dark-coder') {
-        body.classList.add('theme-dark-coder');
-        document.getElementById('btn-dark-coder').classList.add('active');
-        removeGalaxyStars();
+        swapText(true);
       } else {
+        // default — original pixel theme
         const defaultBtn = document.getElementById('btn-default');
         if (defaultBtn) defaultBtn.classList.add('active');
         removeGalaxyStars();
+        swapText(false);
       }
+
       localStorage.setItem('portfolio-theme', theme);
+
+      // Close panel after choosing
       setTimeout(() => {
         themePanelOpen = false;
         document.getElementById('theme-panel').classList.remove('open');
         document.getElementById('theme-toggle-btn').classList.remove('panel-open');
-      }, 500);
+      }, 400);
     }
 
     function removeGalaxyStars() {
@@ -4323,16 +4412,16 @@
       for (let i = 0; i < 80; i++) {
         const star = document.createElement('div');
         star.className = 'galaxy-star';
-        const size = Math.random() * 3 + 1;
+        const size  = Math.random() * 3 + 1;
         const color = colors[Math.floor(Math.random() * colors.length)];
         star.style.cssText = [
           'position:absolute',
-          'width:' + size + 'px',
-          'height:' + size + 'px',
+          'width:'  + size  + 'px',
+          'height:' + size  + 'px',
           'background:' + color,
           'border-radius:50%',
           'left:' + (Math.random() * 100) + 'vw',
-          'top:' + (Math.random() * 300) + 'vh',
+          'top:'  + (Math.random() * 300) + 'vh',
           'opacity:' + (Math.random() * 0.8 + 0.2),
           'animation:twinkle ' + (Math.random() * 3 + 2) + 's ease-in-out infinite',
           'animation-delay:' + (Math.random() * 4) + 's',
@@ -4347,8 +4436,8 @@
     // Restore saved theme on load
     (function () {
       const saved = localStorage.getItem('portfolio-theme');
-      if (saved) {
-        setTimeout(() => setTheme(saved), 60);
+      if (saved && saved === 'galaxy') {
+        setTimeout(() => setTheme('galaxy'), 60);
       } else {
         const defaultBtn = document.getElementById('btn-default');
         if (defaultBtn) defaultBtn.classList.add('active');
